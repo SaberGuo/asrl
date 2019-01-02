@@ -1,0 +1,21 @@
+{
+  "kypt": 1,
+  "kyp1": 1,
+  "kyp2": 1.5,
+  "kyi": 50,
+  "kyd": 340,
+  "kyth": 0,
+  "kylimit": 900,
+  "CtrlSys_Pro_Min": 10,
+  "CtrlSys_Fan_Min": 100,
+  "CtrlSys_Pro_Max": 260,
+  "CtrlSys_Pan_Max": 3000,
+  "CtrlSys_pyth": 300,
+  "CtrlSys_iyth": 150,
+  "CtrlSys_pcth": 2000,
+  "CtrlSys_icth": 2000,
+  "AirscrewNCtrl":[150,150,150,150],
+  "AirFrontscrewNCtrl": 0,
+  "CtrlAllocatePara": [0.67,1],
+  "Thro_Change_Limit": 70
+}

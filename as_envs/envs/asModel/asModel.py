@@ -53,11 +53,11 @@ class AsModel(object):
         #asClmn = np.array([0.3,0.3,0.5])
 
         aspqr = np.array([p,q,r])
-        print(f'alpha:{alpha}')
-        print(f'beta:{beta}')
+        #print(f'alpha:{alpha}')
+        #print(f'beta:{beta}')
         #print(f'asCpqr:{asCpqr}')
-        print(f'asCxyz:{asCxyz}')
-        print(f'asClmn:{asClmn}')
+        #print(f'asCxyz:{asCxyz}')
+        #print(f'asClmn:{asClmn}')
         Fa = -Q*asCxyz*self.conf.Sref
         Ma = -Q*(asClmn+asCpqr*aspqr)*self.conf.Sref*self.conf.Lref
 
@@ -161,8 +161,8 @@ class AsModel(object):
 
         Mg = self._calMg(theta, phi)
         #print(f'addF:{addF}')
-        print(f'Fa:{Fa}')
-        print(f'Ma:{Ma}')
+        #print(f'Fa:{Fa}')
+        #print(f'Ma:{Ma}')
         #print(f'Mg:{Mg}')
 
         Ix = self.conf.Ix
@@ -199,12 +199,12 @@ class AsModel(object):
                 (m + addF[0])*(Ma[1] + Mg[1]) - m*Zc*Fa[0] + m*Zc*(G - B)*stheta)/den2
 
         F26 = (-(Iy - Ix)*p*q + (Ma[2] + Mg[2]))/(Iz + addF[5])
-        print(f'F21:{F21}')
-        print(f'F22:{F22}')
-        print(f'F23:{F23}')
-        print(f'F24:{F24}')
-        print(f'F25:{F25}')
-        print(f'F26:{F26}')
+        #print(f'F21:{F21}')
+        #print(f'F22:{F22}')
+        #print(f'F23:{F23}')
+        #print(f'F24:{F24}')
+        #print(f'F25:{F25}')
+        #print(f'F26:{F26}')
         return np.array([F21, F22, F23, F24, F25, F26])
 
     def _calTriangle(self, vel):
@@ -256,7 +256,7 @@ class AsModel(object):
         B1 = self._calB1()
         vel = self._calvel(u,v,w,W,R1)
         #print(f'R1:{R1}')
-        print(f'vel:{vel}')
+        #print(f'vel:{vel}')
         alpha, beta = self._calTriangle(vel)
         F2 = self._calF2(theta,phi,h,np.linalg.norm(vel),u,v,w, alpha, beta, p, q, r)
 

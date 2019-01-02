@@ -20,8 +20,8 @@ max_step = 12000
 for i in range(max_step):
     state, reward, done,k =  env.step(1)
     np.append(rewards,reward)
-    print(f"alpha:{k['alpha']}")
-    print(f"beta:{k['beta']}")
+    #print(f"alpha:{k['alpha']}")
+    #print(f"beta:{k['beta']}")
     states = np.vstack((states, state))
     alphas = np.append(alphas, k['alpha'])
     betas = np.append(alphas, k['beta'])

@@ -51,4 +51,5 @@ for i in range(6):
 ax[6].plot(alphas, reflinestyle)
 
 ax[7].plot(betas, reflinestyle)
+
 plt.show()

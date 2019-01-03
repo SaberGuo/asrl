@@ -14,12 +14,12 @@ class asDirCtrlEnv(asModelEnv):
 
         self.state_bounds = np.array([[-np.pi/4, -np.pi/4, -np.pi, -20, -20, -10, -5, -5, -5, 0, -8.7*1.5],\
                                         [np.pi/4, np.pi/4, np.pi, 20, 20, 10, 5, 5, 5, 2.5, 8.7*1.5]])
-        #----action-----
+        #----action(psi-target)-----
         self.output_range = [-1,1]##yaw -PI~PI
         action_low = np.array([self.output_range[0]])
         action_high = np.array([self.output_range[1]])
         self.action_space = spaces.Box(action_low, action_high, dtype=np.float32)
-        #----state----
+        #----state（x,y,h,phi,theta,psi,u,v,w,p,q,r）----
         self.X = np.zeros(12)
         self.X[4] = 0.0/180.0*np.pi
         self.X[6] = 0.0
@@ -42,6 +42,9 @@ class asDirCtrlEnv(asModelEnv):
 
         reward = self.compute_reward()
         pos = self.getPos()
+        '''
+        截止条件
+        '''
         done =  np.abs(self.X[3])>15.0/180.0*np.pi or np.abs(self.X[4])>15/180.0*np.pi
         #np.any(pos>self.max_target) or self.sim_step >self.max_sim_time or
         self.sim_step = self.sim_step+1

@@ -9,7 +9,7 @@ os.environ['ASRL_CONFIG_PATH'] = os.path.join(os.getcwd(),"as_envs/envs")
 env = gym.make('airship_DirCtrl-v0')
 alphas = np.array([])
 betas = np.array([])
-states, reward, done,k =  env.step(1)
+states, reward, done,k =  env.step(np.array([0.1, 0]))
 states = states
 alphas = np.append(alphas, k['alpha'])
 betas = np.append(betas, k['beta'])
@@ -18,7 +18,7 @@ end_time = 0
 np.append(rewards,reward)
 max_step = 12000
 for i in range(max_step):
-    state, reward, done,k =  env.step(1)
+    state, reward, done,k =  env.step(np.array([0.1, 0]))
     np.append(rewards,reward)
     #print(f"alpha:{k['alpha']}")
     #print(f"beta:{k['beta']}")
@@ -29,6 +29,9 @@ for i in range(max_step):
         end_time = i
         break
 
+wVel, wDir = env.getWind()
+print(f"wVel:{wVel}")
+print(f"wDir:{wDir}")
 f, ax = plt.subplots(8, sharex=True, sharey=False)
 f.set_size_inches(10, 20)
 ax[0].set_ylabel("phi")

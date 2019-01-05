@@ -12,8 +12,8 @@ class ProModel(object):
         Yt = self.conf.Yt
         F = k_FT*(CtrlSys_Thro**2).reshape(2,2)*np.array([[1,0.8],[1,0.8]])
         F = np.sum(F, axis=1)
-        #u = np.array([F[0]+F[1],0,0,0,0,Yt*F[0]-Yt*F[1]])
-        u = np.array([0,0,0,0,0,0])
+        u = np.array([F[0]+F[1],0,0,0,0,Yt*F[0]-Yt*F[1]])
+        #u = np.array([0,0,0,0,0,0])
         return u
 
 
@@ -227,6 +227,8 @@ class AsModel(object):
         #print(f'v:{v}')
         #print(f'w:{w}')
         beta = math.atan2(v*math.cos(alpha),u)
+        alpha = min(np.abs(alpha), 15*np.pi/180.0)*np.sign(alpha)
+        beta = min(np.abs(beta), 45*np.pi/180.0)*np.sign(beta)
 
         return alpha, beta
 

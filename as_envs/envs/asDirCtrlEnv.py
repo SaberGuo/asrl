@@ -32,8 +32,8 @@ class asDirCtrlEnv(asModelEnv):
         '''
         截止条件
         '''
-        done =   self.sim_step >self.max_sim_time or np.abs(self.X[3])>15.0/180.0*np.pi or np.abs(self.X[4])>15/180.0*np.pi
-        # np.any(pos>self.max_target) or
+        done =  np.any(pos>self.max_target) or self.sim_step >self.max_sim_time or np.abs(self.X[3])>15.0/180.0*np.pi or np.abs(self.X[4])>15/180.0*np.pi
+        #
 
         self.sim_step = self.sim_step+1
         #print(f"model_X:{self.X}")

@@ -7,6 +7,7 @@ import numpy as np
 os.environ['ASRL_CONFIG_PATH'] = os.path.join(os.getcwd(),"as_envs/envs")
 
 env = gym.make('airship_DirCtrl-v0')
+env.reset()
 alphas = np.array([])
 betas = np.array([])
 states, reward, done,k =  env.step(np.array([0.1, 0]))

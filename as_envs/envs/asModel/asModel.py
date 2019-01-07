@@ -41,7 +41,7 @@ class AsModel(object):
         beta = beta*180.0/math.pi
 
         Q = 0.5*self.conf.rho*math.pow(vel,2)
-        #print(f'lmn:{self.asCl.getValue(alpha, beta)}')
+        #print('lmn',self.asCl.getValue(alpha, beta))
         asCxyz = np.array([self.asCx.getValue(alpha, beta)[0], \
                            self.asCy.getValue(alpha, beta)[0]*np.sign(beta), \
                            self.asCz.getValue(alpha, beta)[0]*np.sign(alpha)])
@@ -53,11 +53,11 @@ class AsModel(object):
         #asClmn = np.array([0.3,0.3,0.5])
 
         aspqr = np.array([p,q,r])
-        #print(f'alpha:{alpha}')
-        #print(f'beta:{beta}')
-        #print(f'asCpqr:{asCpqr}')
-        #print(f'asCxyz:{asCxyz}')
-        #print(f'asClmn:{asClmn}')
+        #print('alpha:',alpha)
+        #print('beta:',beta)
+        #print('asCpqr:',asCpqr)
+        #print('asCxyz:',asCxyz)
+        #print('asClmn:',asClmn)
         Fa = -Q*asCxyz*self.conf.Sref
         Ma = -Q*(asClmn+asCpqr*aspqr)*self.conf.Sref*self.conf.Lref
 
@@ -94,9 +94,9 @@ class AsModel(object):
         cpsi = math.cos(psi)
         sphi = math.sin(phi)
         cphi = math.cos(phi)
-        #print(f'phi:{phi}')
-        #print(f'theta:{theta}')
-        #print(f'psi:{psi}')
+        #print('phi:',phi)
+        #print('theta:',theta)
+        #print('psi:',psi)
         #R1 = np.array([[math.cos(theta)*math.cos(psi),math.sin(theta)*math.cos(psi)*math.sin(phi)-math.sin(psi)*math.cos(phi),math.sin(theta)*math.cos(psi)*math.cos(phi)+math.sin(psi)*math.sin(phi)],\
         #[math.cos(theta)*math.sin(psi),math.sin(theta)*math.sin(psi)*math.sin(phi)+math.cos(psi)*math.cos(phi),math.sin(theta)*math.sin(psi)*math.cos(phi)-math.cos(psi)*math.sin(phi)],\
         #[math.sin(theta),-math.cos(theta)*math.sin(phi),-math.cos(theta)*math.cos(phi)]]);
@@ -125,10 +125,10 @@ class AsModel(object):
 
     def _calB1(self):
         den1, den2 = self._calDen()
-        #print(f"den1:{den1}")
-        #print(f"den2:{den2}")
+        #print('den1:',den1)
+        #print('den2:',den2)
         addF = self._calAddForce()
-        #print(f"addF:{addF}")
+        #print('addF:',addF)
         Ix = self.conf.Ix
         Iy = self.conf.Iy
         Iz = self.conf.Iz
@@ -160,10 +160,10 @@ class AsModel(object):
 
 
         Mg = self._calMg(theta, phi)
-        #print(f'addF:{addF}')
-        #print(f'Fa:{Fa}')
-        #print(f'Ma:{Ma}')
-        #print(f'Mg:{Mg}')
+        #print('addF',addF)
+        #print('Fa:',Fa)
+        #print('Ma:',Ma)
+        #print('Mg:',Mg)
 
         Ix = self.conf.Ix
         Iy = self.conf.Iy
@@ -173,8 +173,8 @@ class AsModel(object):
 
         G = self.conf.g*m
         B = G-self.conf.kb*h
-        #print(f"G:{G}")
-        #print(f"B:{B}")
+        #print('G:',G)
+        #print('B:',B)
         ctheta = math.cos(theta)
         stheta = math.sin(theta)
         sphi = math.sin(phi)
@@ -199,12 +199,12 @@ class AsModel(object):
                 (m + addF[0])*(Ma[1] + Mg[1]) - m*Zc*Fa[0] + m*Zc*(G - B)*stheta)/den2
 
         F26 = (-(Iy - Ix)*p*q + (Ma[2] + Mg[2]))/(Iz + addF[5])
-        #print(f'F21:{F21}')
-        #print(f'F22:{F22}')
-        #print(f'F23:{F23}')
-        #print(f'F24:{F24}')
-        #print(f'F25:{F25}')
-        #print(f'F26:{F26}')
+        #print('F21:',F21)
+        #print('F22:',F22)
+        #print('F23:',F23)
+        #print('F24:',F24)
+        #print('F25:',F25)
+        #print('F26:',F26)
         return np.array([F21, F22, F23, F24, F25, F26])
 
     def _calTriangle(self, vel):
@@ -222,10 +222,10 @@ class AsModel(object):
             alpha = -math.pi/2
         else:
             alpha = math.atan(w/u)
-        #print(f'alpha:{alpha}')
-        #print(f'u:{u}')
-        #print(f'v:{v}')
-        #print(f'w:{w}')
+        #print('alpha:',alpha)
+        #print('u:',u)
+        #print('v:',v)
+        #print('w:',w)
         beta = math.atan2(v*math.cos(alpha),u)
         alpha = min(np.abs(alpha), 15*np.pi/180.0)*np.sign(alpha)
         beta = min(np.abs(beta), 45*np.pi/180.0)*np.sign(beta)
@@ -239,7 +239,7 @@ class AsModel(object):
         U: actions' variables
         W: wind speed relative with I Frame
         '''
-        #print(f'X:{X}')
+        #print('X:',X)
         x = X[0]
         y = X[1]
         h = X[2]
@@ -257,19 +257,19 @@ class AsModel(object):
         K1 = self._calK1(phi, theta)
         B1 = self._calB1()
         vel = self._calvel(u,v,w,W,R1)
-        #print(f'R1:{R1}')
-        #print(f'vel:{vel}')
+        #print('R1:',R1)
+        #print('vel:',vel)
         alpha, beta = self._calTriangle(vel)
         F2 = self._calF2(theta,phi,h,np.linalg.norm(vel),u,v,w, alpha, beta, p, q, r)
 
         dx1 = np.dot(R1,np.array([u,v,w]).T)
         dx2 = np.dot(K1,np.array([p,q,r]).T)
         dx3 = F2 +np.dot(B1, U.T)
-        #print(f'F2:{F2}')
-        #print(f'B1:{B1}')
-        #print(f'U:{np.dot(B1,U.T)}')
-        #print(f'dx1:{dx1}')
-        #print(f'dx2:{dx2}')
-        #print(f'dx3:{dx3}')
+        #print('F2:',F2)
+        #print('B1:',B1)
+        #print('U:',np.dot(B1,U.T))
+        #print('dx1',dx1)
+        #print('dx2',dx2)
+        #print('dx3',dx3)
         dx = np.concatenate((dx1.T, dx2.T, dx3.T), axis=0)
         return dx, alpha, beta

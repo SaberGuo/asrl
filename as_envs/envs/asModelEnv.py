@@ -53,7 +53,7 @@ class asModelEnv(gym.Env):
         W = self.wModel.calW(h)
         dx, alpha, beta = self.asModel.calDx(X, U, W)
         dt = 0.1
-        #print(f'dx:{dx}')
+        #print('dx:',dx)
         k1 = dt*dx
         dx2,alpha, beta = self.asModel.calDx(X+k1*0.5, U, W)
 

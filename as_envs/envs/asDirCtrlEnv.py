@@ -36,9 +36,9 @@ class asDirCtrlEnv(asModelEnv):
         #
 
         self.sim_step = self.sim_step+1
-        #print(f"model_X:{self.X}")
-        #print(f"model_step:{self.sim_step}")
-        #print(f"done:{done}")
+        #print("model_X",self.X)
+        #print("model_step",self.sim_step)
+        #print("done:",done)
         return self.state(), reward, done, {"x": self.X[0], "y": self.X[1], "alpha": alpha, "beta": beta,"state_bounds":self.state_bounds}
 
     def getPos(self):

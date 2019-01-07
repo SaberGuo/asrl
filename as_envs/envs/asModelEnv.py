@@ -36,7 +36,7 @@ class asModelEnv(gym.Env):
     def stateInit(self):
         self.wModel.initWind()
         X = np.random.uniform(-1*self.X_bounds, self.X_bounds)
-        U = np.random.uniform(self.U_bounds[:,0].ravel(), self.U_bounds[:,1].ravel())
+        U = np.random.uniform(self.U_bounds[0,:].ravel(), self.U_bounds[1,:].ravel())
         return X, U
 
     def modelStep(self, X, action):

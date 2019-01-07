@@ -49,6 +49,7 @@ class asDirCtrlEnv(asModelEnv):
 
     def reset(self):
         self.X, self.U = self.stateInit()
+        print("self.U:", self.U)
         self.sim_step = 0
 
         return self.state()

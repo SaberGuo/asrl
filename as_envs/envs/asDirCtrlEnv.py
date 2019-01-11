@@ -21,6 +21,9 @@ class asDirCtrlEnv(asModelEnv):
         max_pos = np.linalg.norm(self.max_target-self.target)
         cur_pos = np.linalg.norm(pos - self.target)
         r = (max_pos-cur_pos)/max_pos
+        #print("reward:",r)
+        #print("max_pos:",max_pos)
+        #print("cur_pos:",cur_pos)
         return r
 
 
@@ -32,13 +35,15 @@ class asDirCtrlEnv(asModelEnv):
         '''
         截止条件
         '''
-        done =  np.any(pos>self.max_target) or self.sim_step >self.max_sim_time or np.abs(self.X[3])>15.0/180.0*np.pi or np.abs(self.X[4])>15/180.0*np.pi
+        done =  np.any(np.abs(pos)>self.max_target) or self.sim_step >self.max_sim_time or np.abs(self.X[3])>15.0/180.0*np.pi or np.abs(self.X[4])>15/180.0*np.pi
         #
 
         self.sim_step = self.sim_step+1
         #print("model_X",self.X)
         #print("model_step",self.sim_step)
-        #print("done:",done)
+        #print("pos:",pos)
+        if done:
+            print("done:",done, np.any(pos>self.max_target))
         return self.state(), reward, done, {"x": self.X[0], "y": self.X[1], "alpha": alpha, "beta": beta,"state_bounds":self.state_bounds}
 
     def getPos(self):
@@ -49,7 +54,7 @@ class asDirCtrlEnv(asModelEnv):
 
     def reset(self):
         self.X, self.U = self.stateInit()
-        print("self.U:", self.U)
+        #print("self.X:", self.X)
         self.sim_step = 0
 
         return self.state()

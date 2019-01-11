@@ -3,7 +3,7 @@ import multiprocessing
 import os.path as osp
 import gym
 import as_envs
-import
+import os
 from collections import defaultdict
 import tensorflow as tf
 import numpy as np
@@ -53,9 +53,10 @@ _game_envs['retro'] = {
     'Vectorman-Genesis',
     'FinalFight-Snes',
     'SpaceInvaders-Snes',
+}
+_game_envs['mujoco']={
     'airship_DirCtrl-v0'
 }
-
 
 def train(args, extra_args):
     env_type, env_id = get_env_type(args.env)
@@ -117,7 +118,7 @@ def build_env(args):
        get_session(config=config)
 
        flatten_dict_observations = alg not in {'her'}
-       env = make_vec_env(env_id, env_type, args.num_env or 1, seed, reward_scale=args.reward_scale, flatten_dict_observations=flatten_dict_observations)
+       env = make_vec_env(env_id, env_type, args.num_env or 1, seed, reward_scale=args.reward_scale)
 
        if env_type == 'mujoco':
            env = VecNormalize(env)

@@ -1,7 +1,7 @@
 from gym.envs.registration import register
 
 kwargs = {
-    "max_sim_time": 20*60*100,
+    "max_sim_time": 20*60*10*5,
     }
 
 id = 'airship_DirCtrl-v0'

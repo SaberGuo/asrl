@@ -35,9 +35,9 @@ class asDirCtrlEnv(asModelEnv):
         '''
         截止条件
         '''
-        done =  np.any(np.abs(pos)>self.max_target) or self.sim_step >self.max_sim_time or np.abs(self.X[3])>15.0/180.0*np.pi or np.abs(self.X[4])>15/180.0*np.pi
-        #
-
+        done =   self.sim_step >self.max_sim_time or np.abs(self.X[3])>15.0/180.0*np.pi or np.abs(self.X[4])>15/180.0*np.pi
+        #np.any(np.abs(pos)>self.max_target) or
+        #done = False
         self.sim_step = self.sim_step+1
         #print("model_X",self.X)
         #print("model_step",self.sim_step)
@@ -64,5 +64,5 @@ class asDirCtrlEnv(asModelEnv):
 
         state = np.append(self.X[3:],self.U[0])
         state = np.append(state,self.U[5])
-        state = (state-self.state_bounds[0,:].ravel())/(self.state_bounds[1:].ravel()-self.state_bounds[0,:].ravel())*2-1
+        #state = (state-self.state_bounds[0,:].ravel())/(self.state_bounds[1:].ravel()-self.state_bounds[0,:].ravel())*2-1
         return state

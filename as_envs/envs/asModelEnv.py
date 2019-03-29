@@ -19,8 +19,8 @@ class asModelEnv(gym.Env):
         self.state_bounds = np.array([[-np.pi/4, -np.pi/4, -np.pi, -20, -20, -10, -5, -5, -5, 0, -8.7*1.5],\
                                         [np.pi/4, np.pi/4, np.pi, 20, 20, 10, 5, 5, 5, 2.5, 8.7*1.5]])
 
-        self.X_bounds = np.array([100, 100, 10, 3/180.0*np.pi, 3/180.0*np.pi, np.pi, 10, 0, 0, 0, 0, 0,])
-        self.U_bounds = np.array([[0,0,0,0,0,-8.7*0.2],[1,0,0,0,0,8.7*0.2]])
+        self.X_bounds = np.array([0, 0, 0, 0/180.0*np.pi, 0/180.0*np.pi, np.pi*45/180.0, 0, 0, 0, 0, 0, 0,])
+        self.U_bounds = np.array([[0,0,0,0,0,-8.7*0.0],[0,0,0,0,0,8.7*0.0]])
         #----action(psi-target)-----
 
         action_low = np.array([-1,-1])
@@ -35,20 +35,26 @@ class asModelEnv(gym.Env):
 
     def stateInit(self):
         self.wModel.initWind()
-        X = np.random.uniform(-1*self.X_bounds, self.X_bounds)
+        X = np.random.uniform(self.X_bounds, self.X_bounds)
         U = np.random.uniform(self.U_bounds[0,:].ravel(), self.U_bounds[1,:].ravel())
         return X, U
 
     def modelStep(self, X, action):
 
-        uRef = action[1]*150
-        yawRef = action[0]*np.pi
+        uRef = action[1]
+        yawRef = action[0]*np.pi*2
+        rollRef = 0
+        pitchRef = 0
 
+        roll = X[3]
+        pitch = X[4]
         yaw = X[5]
+
         u = X[6]
         h = X[2]
 
-        proller = self.pidCtrler.calThro(u, uRef, yaw, yawRef)
+        proller = self.pidCtrler.calThro(u, uRef, yaw, yawRef, pitch, pitchRef, roll, rollRef)
+        #print("proller:", proller)
         U = self.proModel.calU(proller)
         W = self.wModel.calW(h)
         dx, alpha, beta = self.asModel.calDx(X, U, W)

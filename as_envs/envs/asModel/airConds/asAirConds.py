@@ -19,7 +19,7 @@ class AsAirConds(object):
         alpha, beta: the unit is degree,range(0,12),range(0,45)
         '''
         return self.func(np.abs(alpha), np.abs(beta))
-        #return 0
+        #return [0]
 if __name__ == "__main__":
 
     os.environ['ASRL_CONFIG_PATH'] = "/Users/guoxiao/Code/asrl/as_envs/envs/"
